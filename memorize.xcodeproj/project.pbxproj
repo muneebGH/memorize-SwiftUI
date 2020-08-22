@@ -61,11 +61,11 @@
 		E6FB10EC2473E39700E888DC /* memorize */ = {
 			isa = PBXGroup;
 			children = (
-				E66FF636247F84550060C8B7 /* EmojiMemoryGame.swift */,
 				E6FB11012473F8B200E888DC /* memorize.entitlements */,
 				E6FB10ED2473E39700E888DC /* AppDelegate.swift */,
 				E6FB10EF2473E39700E888DC /* SceneDelegate.swift */,
 				E6FB10F12473E39700E888DC /* EmojiMemoryGameView.swift */,
+				E66FF636247F84550060C8B7 /* EmojiMemoryGame.swift */,
 				E6E6C883247D1CAE00E5128F /* MemoryGame.swift */,
 				E6FB10F32473E39900E888DC /* Assets.xcassets */,
 				E6FB10F82473E39900E888DC /* LaunchScreen.storyboard */,

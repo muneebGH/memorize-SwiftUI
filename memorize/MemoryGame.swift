@@ -6,6 +6,8 @@
 //  Copyright © 2020 Muneeb Ur Rehman. All rights reserved.
 //
 
+//A model for our app
+
 import Foundation
 
 
@@ -24,8 +26,22 @@ struct MemoryGame<Content>{
         
     }
     
-    func choose(card:Card){
+   mutating func choose(card:Card){
         print("choosed card \(card)")
+        let choosenIndex=index(of: card)
+        self.cards[choosenIndex].isFacedUp = !self.cards[choosenIndex].isFacedUp
+    
+    }
+    
+    func index(of card:Card)->Int{
+        for index in 0..<self.cards.count{
+            if cards[index].id==card.id{
+                return index
+            }
+        }
+        //TODO: rectify this bogus return
+        
+        return 0;
     }
     struct Card : Identifiable{
         var isFacedUp:Bool=true

@@ -9,14 +9,8 @@
 import SwiftUI
 
 struct EmojiMemoryGameView: View {
-    var viewModel:EmojiMemoryGame
-    var fontForCards:Font{
-        if(viewModel.cards.count<=8){
-            return Font.largeTitle
-        }else{
-           return Font.title
-        }
-    }
+    @ObservedObject var viewModel:EmojiMemoryGame
+
     var body: some View {
         HStack{
             ForEach(viewModel.cards){card in
@@ -24,15 +18,12 @@ struct EmojiMemoryGameView: View {
                     .onTapGesture {
                         self.viewModel.choose(card: card)
                 }
-                    .aspectRatio(0.66, contentMode: .fit);
+                .aspectRatio(0.66, contentMode: .fit);
             }
            
         }
             .foregroundColor(Color.orange)
             .padding()
-            .font(fontForCards)
-            
-        
        
     }
 }
@@ -44,17 +35,33 @@ struct EmojiMemoryGameView: View {
 struct CardView:View{
     var card:MemoryGame<String>.Card
     var body:some View{
-        ZStack{
-            if card.isFacedUp {
-                RoundedRectangle(cornerRadius: 10.0).fill().foregroundColor(Color.white)
-                RoundedRectangle(cornerRadius: 10.0).stroke()
-                Text(card.content)
+        GeometryReader{geometry in
+            self.body(for: geometry.size)
+        }
+    }
+    
 
+    func body(for size:CGSize)-> some View{
+        ZStack{
+            if self.card.isFacedUp {
+                RoundedRectangle(cornerRadius: 10.0).fill().foregroundColor(Color.white)
+                RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: edgeLineWidth)
+                Text(self.card.content)
             }
             else{
                 RoundedRectangle(cornerRadius: 10.0).fill()
             }
         }
+        .font(Font.system(size: fontSize(for: size)))
+    }
+    
+    
+    
+    //MARK: - Drawing constants
+    let cornerRadius:CGFloat = 10.0
+    let edgeLineWidth:CGFloat = 3.0
+    func fontSize(for size:CGSize) -> CGFloat{
+        min(size.width,size.height*0.75)
     }
 }
 
